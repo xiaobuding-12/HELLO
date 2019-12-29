@@ -1,0 +1,39 @@
+#include<iostream>
+#include<fstream>
+#include<time.h> 
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+	int nn=1000;
+	int a[nn],i,j,temp;
+	clock_t t;
+	fstream n("一百万.txt",ios::in);
+	cout<<setiosflags(ios::fixed)<<setprecision(6);
+	for(i=0;i<nn;i++)
+		n>>a[i];
+	n.close();
+	t=clock();
+	for(i=0;i<nn-1;i++)
+	{
+		for(j=0;j<nn-1-i;j++)
+		{
+			if(a[j]>a[j+1])
+			{
+				temp=a[j];
+				a[j]=a[j+1];
+				a[j+1]=temp;
+			}
+		}
+	}
+	t=clock()-t;
+/*	for(i=0;i<20000;i++)
+		cout<<a[i]<<" ";*/
+	fstream m("p20000.txt",ios::out|ios::app);
+	for(i=0;i<nn;i++)
+		m<<a[i]<<" ";
+	m.close();
+	cout<<endl<<t<<"ms";
+	return 0;
+} 
